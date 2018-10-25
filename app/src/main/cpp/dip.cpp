@@ -131,7 +131,7 @@ double match_standards(
 	// Percentage Val
 	double ret = (dist_val_hash / max_val) * 100;
 
-	// Avoid > 100
+	// Avoid > 100  max value  100 only
 	if ( ret > 100) {
 		ret = 100;
 	}
