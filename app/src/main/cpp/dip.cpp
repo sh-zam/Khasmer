@@ -125,10 +125,18 @@ double match_standards(
 	double dist_val_hash = computeHash(img_hash::BlockMeanHash::create(0), tgt, dst);
 
 	// Max Val
-	double max_val = 50;
+
+	double max_val = 100;
 
 	// Percentage Val
-	return (dist_val_hash / max_val) * 100;
+	double ret = (dist_val_hash / max_val) * 100;
+
+	// Avoid > 100
+	if ( ret > 100) {
+		ret = 100;
+	}
+
+	return ret;
 }
 
 /**
