@@ -15,9 +15,9 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginEnd="253dp"
-        android:layout_marginRight="253dp"
-        android:layout_marginBottom="0dp"
+        android:layout_marginEnd="251dp"
+        android:layout_marginRight="251dp"
+        android:layout_marginBottom="21dp"
         android:background="@drawable/bt" />
 
     <Button
@@ -50,9 +50,8 @@
 
         android:layout_alignParentTop="true"
         android:layout_marginStart="0dp"
-        android:layout_marginTop="274dp"
-        android:text="              This system is to be calculatedthe percentages
-             damages of a certain places by taking data image
-                  sand comparing the old data to a new data " />
+        android:layout_marginTop="208dp"
+        android:text="This system is to be calculatedthe percentages damages of a certain places by taking data image  sand comparing the old data to a new data "
+        android:textAppearance="@android:style/TextAppearance.DeviceDefault.SearchResult.Subtitle" />
 
 </RelativeLayout>
