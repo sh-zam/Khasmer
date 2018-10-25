@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">DisasterManagement</string>
+    <string name="capture">Capture</string>
+    <string name="todo">TODO</string>
+    <string name="capture2">CAPTURE2</string>
+    <string name="capture1">CAPTURE1</string>
+</resources>

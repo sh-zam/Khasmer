@@ -1,0 +1,116 @@
+package abs.khasmer.disastermanagement;
+
+import android.app.Activity;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
+import android.view.View;
+import android.widget.Button;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+
+public class MainActivity extends Activity {
+
+    private final int IMAGE_REQUEST_CODE = 1;
+    private final int PERMISSION_REQUEST_CODE = 2;
+
+    Button b1, b2;
+    private Button mNextButton;
+    
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_main);
+		
+        b1 = (Button) findViewById(R.id.b1);
+        mNextButton = (Button) findViewById(R.id.next_button);
+
+        b1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startCamera();
+            }
+        });
+
+        mNextButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(MainActivity.this, ImagesGallery.class);
+                startActivity(i);
+            }
+        });
+	}
+
+    private void startCamera() {
+        Intent i = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        startActivityForResult(i, IMAGE_REQUEST_CODE);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == IMAGE_REQUEST_CODE) {
+            if (resultCode == RESULT_OK) {
+                Bitmap b = (Bitmap) data.getExtras().get("data");
+                saveImage(b);
+            }
+        }
+    }
+
+    /**
+     * Checks whether read + write permission is given or not
+     * @return false if storage permission is not given
+     *         True otherwise
+     */
+    boolean isExternalStorageAccessible() {
+        String state = Environment.getExternalStorageState();
+        return Environment.MEDIA_MOUNTED.equals(state);
+    }
+
+    private File getDirectory() {
+    	String name = "images";
+        File file = new File(Environment.getExternalStoragePublicDirectory(
+                Environment.DIRECTORY_PICTURES), name);
+
+        if (!file.exists()) {
+            file.mkdirs();
+        }
+        return file;
+    }
+
+    private void saveImage(Bitmap bitmap) {
+        if (!isExternalStorageAccessible()) {
+            // show dialog
+            return;
+        }
+       File file = new File(getDirectory(), createImageFile());
+
+        try {
+        	if (file.exists()) {
+                file.delete();
+                file.createNewFile();
+            }
+            FileOutputStream outputStream = new FileOutputStream(file);
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream);
+            outputStream.flush();
+            outputStream.close();
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    private String createImageFile() {
+        // Create an image file name
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        return "disaster-" + timeStamp + ".jpg";
+    }
+}
