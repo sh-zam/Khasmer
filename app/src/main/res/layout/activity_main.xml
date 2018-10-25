@@ -50,7 +50,7 @@
 
         android:layout_alignParentTop="true"
         android:layout_marginStart="0dp"
-        android:layout_marginTop="269dp"
+        android:layout_marginTop="274dp"
         android:text="              This system is to be calculatedthe percentages
              damages of a certain places by taking data image
                   sand comparing the old data to a new data " />

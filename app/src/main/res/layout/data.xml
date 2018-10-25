@@ -41,16 +41,18 @@
         android:layout_marginTop="12dp"
         android:src="@drawable/t1" />
 
+
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="-246dp"
-        android:layout_marginTop="230dp"
-        android:layout_toEndOf="@+id/b1"
-        android:text="This system is to be calculated
-the percentages damages of a certain places by taking data images
-and comparing the old data to a new data " />
+        android:layout_alignParentStart="true"
 
+
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="274dp"
+        android:text="              This system is to be calculatedthe percentages
+             damages of a certain places by taking data image
+                  sand comparing the old data to a new data " />
 </RelativeLayout>
