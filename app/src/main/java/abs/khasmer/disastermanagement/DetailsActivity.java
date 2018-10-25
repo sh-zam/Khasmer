@@ -59,7 +59,7 @@ public class DetailsActivity extends Activity {
       
       // Toast display
       Context context = getApplicationContext();
-      CharSequence text = "Disaster: " + Double.toString(round(pct, 2)) + "%";
+      CharSequence text = "Calculated Percentages Damages " + Double.toString(round(pct, 2)) + "%";
       int duration = Toast.LENGTH_LONG;
       Toast toast = Toast.makeText(context, text, duration);
       toast.setGravity(Gravity.BOTTOM|Gravity.CENTER, 0, 0);
