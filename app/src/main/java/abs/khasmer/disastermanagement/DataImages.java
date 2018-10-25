@@ -21,7 +21,6 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-
 public class DataImages extends AppCompatActivity {
 
     private final int IMAGE_REQUEST_CODE = 1;
@@ -110,7 +109,7 @@ public class DataImages extends AppCompatActivity {
     }
 
     private File getDirectory() {
-    	String name = "images";
+        String name = "images";
         File file = new File(Environment.getExternalStoragePublicDirectory(
                 Environment.DIRECTORY_PICTURES), name);
 
@@ -125,10 +124,10 @@ public class DataImages extends AppCompatActivity {
             // show dialog
             return;
         }
-       File file = new File(getDirectory(), createImageFile());
+        File file = new File(getDirectory(), createImageFile());
 
         try {
-        	if (file.exists()) {
+            if (file.exists()) {
                 file.delete();
                 file.createNewFile();
             }
