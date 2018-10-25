@@ -24,7 +24,8 @@ import java.util.Date;
 public class DataImages extends AppCompatActivity {
 
     private final int IMAGE_REQUEST_CODE = 1;
-    private final int PERMISSION_REQUEST_CODE = 2;
+    private final int CAMERA_PERMISSION_REQUEST_CODE = 2;
+    private final int STORAGE_PERMISSION_REQUEST_CODE = 3;
 
     Button b1, b2;
     private Button mNextButton;
@@ -40,11 +41,17 @@ public class DataImages extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    if (checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-                        ActivityCompat.requestPermissions(
-                                DataImages.this,
-                                new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
-                                PERMISSION_REQUEST_CODE);
+                    if (checkSelfPermission(Manifest.permission.CAMERA) !=
+                            PackageManager.PERMISSION_GRANTED
+                            || checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) !=
+                                    PackageManager.PERMISSION_GRANTED) {
+
+                        requestPermissions(
+                                new String[]{
+                                        Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                                        Manifest.permission.CAMERA
+                                },
+                                CAMERA_PERMISSION_REQUEST_CODE);
                     }
                     else {
                         startCamera();
@@ -58,18 +65,21 @@ public class DataImages extends AppCompatActivity {
             public void onClick(View view) {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                     if (checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-                        ActivityCompat.requestPermissions(
-                                DataImages.this,
+                        requestPermissions(
                                 new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
-                                PERMISSION_REQUEST_CODE);
+                                STORAGE_PERMISSION_REQUEST_CODE);
                     }
                     else {
-                        Intent i = new Intent(DataImages.this, ImagesGallery.class);
-                        startActivity(i);
+                        startGallery();
                     }
                 }
             }
         });
+    }
+
+    private void startGallery() {
+        Intent i = new Intent(DataImages.this, ImagesGallery.class);
+        startActivity(i);
     }
 
     private void startCamera() {
@@ -91,9 +101,15 @@ public class DataImages extends AppCompatActivity {
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requestCode == PERMISSION_REQUEST_CODE) {
-            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+        if (requestCode == CAMERA_PERMISSION_REQUEST_CODE) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED &&
+                    grantResults[1] == PackageManager.PERMISSION_GRANTED) {
                 startCamera();
+            }
+        }
+        else if (requestCode == STORAGE_PERMISSION_REQUEST_CODE) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                startGallery();
             }
         }
     }
