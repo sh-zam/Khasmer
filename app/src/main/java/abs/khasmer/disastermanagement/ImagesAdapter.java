@@ -1,10 +1,7 @@
 package abs.khasmer.disastermanagement;
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.annotation.NonNull;
-import android.support.constraint.ConstraintLayout;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -66,7 +63,7 @@ public class ImagesAdapter extends RecyclerView.Adapter<CustomViewHolder> {
 
 	public void clearSelectedItems() {
 		mSelectedItems.clear();
-		((ImagesGallery) mContext).toggleActionBarView();
+		((ImagesGalleryActivity) mContext).toggleActionBarView();
 		notifyDataSetChanged();
 	}
 

@@ -4,4 +4,7 @@
     <string name="todo">TODO</string>
     <string name="capture2">CAPTURE2</string>
     <string name="capture1">CAPTURE1</string>
+    <string name="next_button">Next</string>
+    <string name="app_information">This system is to be calculatedthe percentages damages of a certain places by taking data image sand comparing the old data to a new data</string>
+    <string name="logo_des">logo</string>
 </resources>

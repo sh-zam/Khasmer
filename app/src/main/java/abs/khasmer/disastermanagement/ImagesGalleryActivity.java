@@ -9,7 +9,6 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.GridView;
 import android.widget.Toast;
 
 import java.io.File;
@@ -20,12 +19,11 @@ import java.util.ArrayList;
  * Created by sh-zam <codeconscious@pm.me> on 10/10/18
  */
 
-public class ImagesGallery extends AppCompatActivity {
+public class ImagesGalleryActivity extends AppCompatActivity {
 
-	private static final String TAG = "ImagesGallery";
+	private static final String TAG = "ImagesGalleryActivity";
 	private ArrayList<File> mFiles = new ArrayList<>();
 
-	private GridView mGridView;
 	private ImagesAdapter mAdapter;
 	private RecyclerView mRecyclerView;
 
@@ -103,7 +101,7 @@ public class ImagesGallery extends AppCompatActivity {
 							.show();
 				}
 				else {
-					Intent i = new Intent(ImagesGallery.this, DetailsActivity.class);
+					Intent i = new Intent(ImagesGalleryActivity.this, DetailsActivity.class);
 					i.putExtra("FILE_1", mFiles.get(mAdapter.getSelectedItems()[0]));
 					i.putExtra("FILE_2", mFiles.get(mAdapter.getSelectedItems()[1]));
 					startActivity(i);

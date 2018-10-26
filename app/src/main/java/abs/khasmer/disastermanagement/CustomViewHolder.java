@@ -17,7 +17,7 @@ import java.util.HashSet;
 
 public class CustomViewHolder extends RecyclerView.ViewHolder
 			implements View.OnLongClickListener, View.OnClickListener {
-	ConstraintLayout mParentLayout;
+	private ConstraintLayout mParentLayout;
 	ImageView mImageView;
 	ImageView mCheckedImageView;
 
@@ -54,13 +54,13 @@ public class CustomViewHolder extends RecyclerView.ViewHolder
 			mCheckedImageView.setVisibility(View.VISIBLE);
 			mSelectedItems.add(getAdapterPosition());
 			if (mSelectedItems.size() == 1)
-				((ImagesGallery)mContext).toggleActionBarView();
+				((ImagesGalleryActivity)mContext).toggleActionBarView();
 		}
 		else {
 			mCheckedImageView.setVisibility(View.GONE);
 			mSelectedItems.remove(getAdapterPosition());
 			if (mSelectedItems.size() == 0)
-				((ImagesGallery)mContext).toggleActionBarView();
+				((ImagesGalleryActivity)mContext).toggleActionBarView();
 		}
 	}
 }

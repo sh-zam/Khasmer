@@ -1,23 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/bg1"
-    tools:context=".MainActivity">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:background="@drawable/bg1"
+	tools:context=".MainActivity"
+	>
 
     <Button
         android:id="@+id/b1"
         android:layout_width="118dp"
         android:layout_height="111dp"
         android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginEnd="251dp"
-        android:layout_marginRight="251dp"
-        android:layout_marginBottom="21dp"
+        android:layout_marginEnd="253dp"
+        android:layout_marginBottom="0dp"
         android:background="@drawable/bt" />
 
     <Button
@@ -27,31 +24,34 @@
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@+id/b1"
         android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
         android:layout_marginEnd="36dp"
-        android:layout_marginRight="36dp"
-        android:text="Next" />
+        android:text="@string/next_button" />
 
     <ImageView
         android:id="@+id/imageView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+		android:contentDescription="@string/logo_des"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_marginTop="12dp"
         android:src="@drawable/t1" />
 
+
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+
+
+        android:layout_alignParentEnd="true"
         android:layout_alignParentStart="true"
-
-
         android:layout_alignParentTop="true"
-        android:layout_marginStart="0dp"
-        android:layout_marginTop="208dp"
-        android:text="This system is to be calculatedthe percentages damages of a certain places by taking data image  sand comparing the old data to a new data "
-        android:textAppearance="@android:style/TextAppearance.DeviceDefault.SearchResult.Subtitle" />
-
+        android:layout_marginBottom="231dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="13dp"
+        android:layout_marginTop="228dp"
+        android:text="@string/app_information"
+        />
 </RelativeLayout>
