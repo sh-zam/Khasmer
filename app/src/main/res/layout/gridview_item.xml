@@ -1,26 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
-	xmlns:android="http://schemas.android.com/apk/res/android"
-	android:layout_width="wrap_content"
-
-	android:layout_height="250dp"
-	>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:id="@+id/frameLayout"
+	android:layout_width="160dp"
+	android:layout_height="250dp">
 
 	<ImageView
 		android:id="@+id/imageView"
-		android:layout_width="186dp"
-		android:layout_height="match_parent"
+		android:layout_width="160dp"
+		android:layout_height="250dp"
 		android:src="@drawable/bg"
+		app:layout_constraintStart_toStartOf="@+id/checked"
+		app:layout_constraintTop_toTopOf="@+id/checked"
 		/>
 
 	<ImageView
 		android:id="@+id/checked"
-		android:layout_width="46dp"
-		android:layout_height="59dp"
+		android:layout_width="30dp"
+		android:layout_height="30dp"
 		android:src="@drawable/checked"
-		android:layout_gravity="bottom|end"
 		android:visibility="gone"
 		/>
 
 
-</FrameLayout>
+</android.support.constraint.ConstraintLayout>

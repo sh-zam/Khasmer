@@ -4,4 +4,7 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
 
+	<dimen name="gridview_horizontal_width">160dp</dimen>
+	<dimen name="gridview_vertical_margin">250dp</dimen>
+
 </resources>
