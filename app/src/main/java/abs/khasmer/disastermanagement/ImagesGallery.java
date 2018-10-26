@@ -2,15 +2,14 @@ package abs.khasmer.disastermanagement;
 
 import android.os.Bundle;
 import android.os.Environment;
-import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.widget.GridView;
+import android.widget.Toast;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -28,6 +27,8 @@ public class ImagesGallery extends AppCompatActivity {
 	private GridView mGridView;
 	private CustomGridViewAdapter mAdapter;
 	private RecyclerView mRecyclerView;
+
+	private boolean displayMenu = false;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +56,12 @@ public class ImagesGallery extends AppCompatActivity {
 		mRecyclerView.setAdapter(new ImagesAdapter(this, mFiles));
 	}
 
+	void toggleActionBarView() {
+		//getSupportActionBar().setCustomView(R.layout.toolbar_layout);
+		displayMenu = !displayMenu;
+		invalidateOptionsMenu();
+	}
+
 	/**
 	 * removes the deleted views
 	 */
@@ -78,12 +85,14 @@ public class ImagesGallery extends AppCompatActivity {
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
+		if (displayMenu)
+			getMenuInflater().inflate(R.menu.long_press_menu, menu);
 		return super.onCreateOptionsMenu(menu);
 	}
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		super.onBackPressed();
+
 		return super.onOptionsItemSelected(item);
 	}
 }
