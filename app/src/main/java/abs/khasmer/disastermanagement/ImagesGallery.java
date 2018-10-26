@@ -1,5 +1,6 @@
 package abs.khasmer.disastermanagement;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
@@ -25,7 +26,7 @@ public class ImagesGallery extends AppCompatActivity {
 	private ArrayList<File> mFiles = new ArrayList<>();
 
 	private GridView mGridView;
-	private CustomGridViewAdapter mAdapter;
+	private ImagesAdapter mAdapter;
 	private RecyclerView mRecyclerView;
 
 	private boolean displayMenu = false;
@@ -51,9 +52,10 @@ public class ImagesGallery extends AppCompatActivity {
 		}
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+		mAdapter = new ImagesAdapter(this, mFiles);
 		mRecyclerView = findViewById(R.id.recyclerView);
 		mRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
-		mRecyclerView.setAdapter(new ImagesAdapter(this, mFiles));
+		mRecyclerView.setAdapter(mAdapter);
 	}
 
 	void toggleActionBarView() {
@@ -65,22 +67,21 @@ public class ImagesGallery extends AppCompatActivity {
 	/**
 	 * removes the deleted views
 	 */
-	private void deleteView() {
-		for (int i = mGridView.getCount() - 1; i >= 0; --i) {
-			if (mGridView.isItemChecked(i)) {
-				deleteImage(i);
-				mAdapter.notifyDataSetChanged();
-			}
-		}
+	private void deleteView(Integer[] array) {
+		deleteImages(array);
+		mAdapter.notifyDataSetChanged();
 	}
 
 	/**
-	 * Deletes the image from storage and dataset
-	 * @param position of the item
+	 * Deletes the image from storage and the dataset
+	 * @param positions of the selected images
 	 */
-	private void deleteImage(int position) {
-		mFiles.get(position).delete();
-		mFiles.remove(position);
+	private void deleteImages(Integer[] positions) {
+		for (int position: positions) {
+			mFiles.get(position).delete();
+			mFiles.remove(position);
+		}
+		mAdapter.clearSelectedItems();
 	}
 
 	@Override
@@ -92,7 +93,35 @@ public class ImagesGallery extends AppCompatActivity {
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-
+		switch (item.getItemId()) {
+			case R.id.menu_delete:
+				deleteView(mAdapter.getSelectedItems());
+				break;
+			case R.id.menu_next:
+				if (mAdapter.getSelectedItems().length != 2) {
+					Toast.makeText(this, "Please select only 2 images", Toast.LENGTH_LONG)
+							.show();
+				}
+				else {
+					Intent i = new Intent(ImagesGallery.this, DetailsActivity.class);
+					i.putExtra("FILE_1", mFiles.get(mAdapter.getSelectedItems()[0]));
+					i.putExtra("FILE_2", mFiles.get(mAdapter.getSelectedItems()[1]));
+					startActivity(i);
+				}
+				break;
+			default:
+				onBackPressed();
+		}
 		return super.onOptionsItemSelected(item);
+	}
+
+	@Override
+	public void onBackPressed() {
+		if (displayMenu) {
+			mAdapter.clearSelectedItems();
+		}
+		else {
+			super.onBackPressed();
+		}
 	}
 }
