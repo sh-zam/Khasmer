@@ -77,7 +77,7 @@ public class DetailsActivity extends AppCompatActivity {
 		 toast.show();
 		 tv.setText(text);
 		 if (pct >= 75) {
-		 	tv.setBackgroundColor(Color.BLACK);
+		 	tv.setBackgroundColor(Color.RED);
 		 }
 		 else if (pct >= 50) {
 			tv.setBackgroundColor(Color.YELLOW);
@@ -85,7 +85,6 @@ public class DetailsActivity extends AppCompatActivity {
 		 else {
 		 	tv.setBackgroundColor(Color.GREEN);
 		 }
-
 	}
 	
 	public static double round(double value, int places) {
