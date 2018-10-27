@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
     private final int CAMERA_PERMISSION_REQUEST_CODE = 2;
     private final int STORAGE_PERMISSION_REQUEST_CODE = 3;
 
-    Button b1, b2;
+    private Button b1;
     private Button mNextButton;
 
     @Override
@@ -124,7 +124,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private File getDirectory() {
-        String name = "images";
+        String name = "DisasterImages";
         File file = new File(Environment.getExternalStoragePublicDirectory(
                 Environment.DIRECTORY_PICTURES), name);
 

@@ -37,7 +37,10 @@ public class ImagesGalleryActivity extends AppCompatActivity {
 
 		// Add file names to ArrayList
 		File parent = Environment.getExternalStorageDirectory();
-		File imagesDir = new File(parent, "Pictures/images");
+		File imagesDir = new File(parent, "Pictures/DisasterImages");
+		if (!imagesDir.exists()) {
+			imagesDir.mkdirs();
+		}
 		for (File file: imagesDir.listFiles()) {
 			if (file.isFile()) {
 				mFiles.add(file);

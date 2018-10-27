@@ -7,6 +7,7 @@ package abs.khasmer.disastermanagement;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -24,16 +25,16 @@ import java.math.RoundingMode;
 
 
 public class DetailsActivity extends AppCompatActivity {
-    // NDK STUFF
-    static {
-        System.loadLibrary("dip");
-    }
-    public native double calcDisasterPCT(
-    		Bitmap bitmap_src,
-    		Bitmap bitmap_dst
-    		);
-    // END NDK STUFF
-    
+	// NDK STUFF
+	static {
+		System.loadLibrary("dip");
+	}
+	public native double calcDisasterPCT(
+			Bitmap bitmap_src,
+			Bitmap bitmap_dst
+			);
+	// END NDK STUFF
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -65,25 +66,34 @@ public class DetailsActivity extends AppCompatActivity {
 //      Bitmap right=(Bitmap)data.getExtras().get("data");
 //      iv1.setImageBitmap(right);
 //      
-      double pct = calcDisasterPCT(left, right);
-      
-      // Toast display
-      Context context = getApplicationContext();
-      CharSequence text = "Calculated Percentages Damages " + Double.toString(round(pct, 2)) + "%";
-      int duration = Toast.LENGTH_SHORT;
-      Toast toast = Toast.makeText(context, text, duration);
-      toast.setGravity(Gravity.BOTTOM|Gravity.CENTER, 0, 0);
-      toast.show();
-      tv.setText(text);
-		
+		 double pct = calcDisasterPCT(left, right);
+
+		 // Toast display
+		 Context context = getApplicationContext();
+		 CharSequence text = "Calculated Percentages Damages " + Double.toString(round(pct, 2)) + "%";
+		 int duration = Toast.LENGTH_SHORT;
+		 Toast toast = Toast.makeText(context, text, duration);
+		 toast.setGravity(Gravity.BOTTOM|Gravity.CENTER, 0, 0);
+		 toast.show();
+		 tv.setText(text);
+		 if (pct >= 75) {
+		 	tv.setBackgroundColor(Color.BLACK);
+		 }
+		 else if (pct >= 50) {
+			tv.setBackgroundColor(Color.YELLOW);
+		 }
+		 else {
+		 	tv.setBackgroundColor(Color.GREEN);
+		 }
+
 	}
 	
 	public static double round(double value, int places) {
-	    if (places < 0) throw new IllegalArgumentException();
+		if (places < 0) throw new IllegalArgumentException();
 
-	    BigDecimal bd = new BigDecimal(value);
-	    bd = bd.setScale(places, RoundingMode.HALF_UP);
-	    return bd.doubleValue();
+		BigDecimal bd = new BigDecimal(value);
+		bd = bd.setScale(places, RoundingMode.HALF_UP);
+		return bd.doubleValue();
 	}
 
 	@Override
