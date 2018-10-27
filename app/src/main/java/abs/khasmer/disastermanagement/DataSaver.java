@@ -5,29 +5,7 @@ package abs.khasmer.disastermanagement;
  * Email: codeconscious@pm.me
  */
 
-/*
-
-JSON array start
-[
-
-JSON object start
-"$date" : {
-	"image1" : "<location to that image>",
-	"image2" : "<location to another image>",
-	"rating" : "<result in percentage>"
-}
-JSON object end
-
-...
-...
-...
-
-]
-JSON array end
- */
-
 import android.content.Context;
-import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONException;

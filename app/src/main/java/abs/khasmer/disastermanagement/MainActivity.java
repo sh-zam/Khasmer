@@ -25,9 +25,11 @@ public class MainActivity extends AppCompatActivity {
     private final int IMAGE_REQUEST_CODE = 1;
     private final int CAMERA_PERMISSION_REQUEST_CODE = 2;
     private final int STORAGE_PERMISSION_REQUEST_CODE = 3;
+    private final int HISTORY_READ_PERMISSION_REQUEST_CODE = 4;
 
     private Button b1;
     private Button mNextButton;
+    private Button mHistoryButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         b1 = findViewById(R.id.b1);
         mNextButton = findViewById(R.id.next_button);
+        mHistoryButton = findViewById(R.id.history_button);
 
         b1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -74,6 +77,27 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+
+        mHistoryButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    if (checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                        requestPermissions(
+                                new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                                HISTORY_READ_PERMISSION_REQUEST_CODE);
+                    }
+                    else {
+                        startHistoryActivity();
+                    }
+                }
+            }
+        });
+    }
+
+    private void startHistoryActivity() {
+        Intent i = new Intent(this, HistoryActivity.class);
+        startActivity(i);
     }
 
     private void startGallery() {
@@ -109,6 +133,11 @@ public class MainActivity extends AppCompatActivity {
         else if (requestCode == STORAGE_PERMISSION_REQUEST_CODE) {
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 startGallery();
+            }
+        }
+        else if (requestCode == HISTORY_READ_PERMISSION_REQUEST_CODE) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                startHistoryActivity();
             }
         }
     }

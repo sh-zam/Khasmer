@@ -7,4 +7,5 @@
     <string name="next_button">Next</string>
     <string name="app_information">This system is to be calculatedthe percentages damages of a certain places by taking data image sand comparing the old data to a new data</string>
     <string name="logo_des">logo</string>
+	<string name="history_button">History</string>
 </resources>

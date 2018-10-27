@@ -32,6 +32,8 @@
             android:theme="@style/Theme.AppCompat.Light.DarkActionBar"
             android:label="Start Activity" >
         </activity>
+        <activity android:name=".HistoryActivity"
+            />
     </application>
 
 </manifest>
