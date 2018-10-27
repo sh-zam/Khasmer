@@ -85,6 +85,9 @@ public class DetailsActivity extends AppCompatActivity {
 		 else {
 		 	tv.setBackgroundColor(Color.GREEN);
 		 }
+
+		 new DataSaver(this).saveResult(file1.getAbsolutePath(),
+				 file2.getAbsolutePath(), pct);
 	}
 	
 	public static double round(double value, int places) {
