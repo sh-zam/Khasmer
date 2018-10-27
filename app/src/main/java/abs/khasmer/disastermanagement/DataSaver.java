@@ -40,6 +40,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
+import java.util.ArrayList;
 
 public class DataSaver {
 
@@ -67,19 +68,24 @@ public class DataSaver {
 								  double rating) {
 		try {
 			// JSON mapping starts
+			JSONArray jsonArray = getJsonArray();
+			if (jsonArray == null) {
+				jsonArray = new JSONArray();
+			}
 			JSONObject object = new JSONObject();
 			object.put(IMAGE_ONE_LOCATION, image1Location);
 			object.put(IMAGE_TWO_LOCATION, image2Location);
 			object.put(DISASTER_RATING, rating);
+			jsonArray.put(object);
 			// JSON mapping ends
 
-			Log.d("DataSaver", "json data: " + object.toString());
+			//Log.d("DataSaver", "json data: " + object.toString());
 
 			FileOutputStream out = mContext.openFileOutput(FILENAME,
 					Context.MODE_PRIVATE);
 
 			Writer writer = new OutputStreamWriter(out);
-			writer.write(object.toString());
+			writer.write(jsonArray.toString());
 			writer.close();
 		}
 		catch (JSONException | IOException e) {
@@ -88,36 +94,52 @@ public class DataSaver {
 		}
 	}
 
-	public JSONArray getResults() {
+	private JSONArray getJsonArray() {
 		StringBuilder builder = new StringBuilder();
 		try {
 			FileInputStream fis = mContext.openFileInput(FILENAME);
 			InputStreamReader in = new InputStreamReader(fis);
-			 BufferedReader reader = new BufferedReader(in);
+			BufferedReader reader = new BufferedReader(in);
 
 			String tmp;
 			while ((tmp = reader.readLine()) != null) {
 				builder.append(tmp);
 			}
 			reader.close();
+			return new JSONArray(builder.toString());
 		}
-		catch (IOException e) {
+		catch (IOException | JSONException e) {
 			// ( ͡° ͜ʖ ͡°)
 			e.printStackTrace();
 		}
-
-		return parseString(builder.toString());
+		return null;
 	}
 
-	private JSONArray parseString(String s) {
+	public ArrayList<HistoryItem> getResults() {
+		JSONArray jsonArray = getJsonArray();
+		if (jsonArray == null) {
+			return new ArrayList<>();
+		}
+		return parseJson(jsonArray);
+	}
+
+	private ArrayList<HistoryItem> parseJson(JSONArray array) {
+		ArrayList<HistoryItem> historyItems = new ArrayList<>();
 		try {
-			return new JSONArray(s);
+			for (int i = 0; i < array.length(); ++i) {
+				JSONObject object = array.getJSONObject(i);
+				historyItems.add(new HistoryItem(
+						object.getString(IMAGE_ONE_LOCATION),
+						object.getString(IMAGE_TWO_LOCATION),
+						object.getDouble(DISASTER_RATING)));
+			}
+			//Log.d("DataSaver", "historyItems: " + array.toString());
 		}
 		catch (JSONException e) {
 			// ( ͡° ͜ʖ ͡°)
 			e.printStackTrace();
 		}
-		return null;
+		return historyItems;
 	}
 
 }
