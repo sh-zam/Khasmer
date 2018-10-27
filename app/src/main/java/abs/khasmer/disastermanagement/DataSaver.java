@@ -13,6 +13,7 @@ import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -47,6 +48,7 @@ public class DataSaver {
 		try {
 			// JSON mapping starts
 			JSONArray jsonArray = getJsonArray();
+			// if history is clear
 			if (jsonArray == null) {
 				jsonArray = new JSONArray();
 			}
@@ -118,6 +120,22 @@ public class DataSaver {
 			e.printStackTrace();
 		}
 		return historyItems;
+	}
+
+	public void deleteHistory() {
+		try {
+			// opens the file
+			FileOutputStream outputStream = mContext.openFileOutput(FILENAME, Context.MODE_PRIVATE);
+
+			// overwrites the file with no data
+			OutputStreamWriter writer = new OutputStreamWriter(outputStream);
+			writer.write("");
+			writer.close();
+
+		}
+		catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 }

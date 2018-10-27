@@ -54,6 +54,11 @@ public class HistoryAdapter extends
 		return mHistoryItems.size();
 	}
 
+	public void notifyDataDeleted() {
+		mHistoryItems.clear();
+		notifyDataSetChanged();
+	}
+
 	static class ViewHolder extends RecyclerView.ViewHolder {
 
 		ImageView mImageView1;
